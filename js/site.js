@@ -1,114 +1,18 @@
-var inputs = ["setAll","v2","target"];
-var inpStars = ["inpStar1","inpStar2","inpStar3","inpStar4","inpStar5","inpStar6","inpStar7","inpStar8","inpStar9","inpStar10"]
-var language = window.navigator.userLanguage || window.navigator.language;
-
-var languages = {
-  "en": {
-    "Title": "Star Calc",
-    "SetAll": "Set all to: ",
-    "Settings": "Remember levels: ",
-    "v2Level": "Scrapyard V2: ",
-    "Target": "Target Stars: "
-  },
-  "es": {
-    "Title": "Cálculo de Estrellas",
-    "SetAll": "Establecer todo en: ",
-    "Settings": "Recuerda niveles: ",
-    "v2Level": "Vertedero V2: ",
-    "Target": "Objetivo Estrellas: "
-  },
-  "ru": {
-    "Title": "Звездный Кальк",
-    "SetAll": "Установить все звезды: ",
-    "Settings": "Запомнить уровни: ",
-    "v2Level": "Двор мусора v2: ",
-    "Target": "Целевые звезды: "
-  },
-  "de": {
-    "Title": "Sterne Kalkulator",
-    "Settings": "Merken Sie sich die Level: ",
-    "SetAll": "Setze alle Sterne: ",
-    "v2Level": "Schrottplatz V2: ",
-    "Target": "Zielsterne: "
-  },
-  "fr": {
-    "Title": "Étoile Calculette",
-    "Settings": "Mémoriser les niveaux: ",
-    "SetAll": "Définir toutes les étoiles: ",
-    "v2Level": "Parc à casse V2: ",
-    "Target": "Cible Étoile: "
-  }
-}
-
-
-language = language.substring(0,2);
-document.getElementById("lblTitle").innerHTML = languages[language]["Title"];
-document.getElementById("lblSetAll").innerHTML = languages[language]["SetAll"];
-document.getElementById("lblSettings").innerHTML = languages[language]["Settings"];
-document.getElementById("lblv2Level").innerHTML = languages[language]["v2Level"];
-document.getElementById("lblTarget").innerHTML = languages[language]["Target"];
-
-window.onload = checkLocalStorage();
-
-function onRememberMeChange(){
-	if (document.getElementById("rememberMe").checked) 
-	{
-		setLocalStorage()
-	}
-	else
-	{
-		localStorage.clear();
-	}
-}
-
-function setLocalStorage() {
-	inputs.forEach(input => {
-		localStorage.setItem(input,document.getElementById(input).value);
-	});
-	inpStars.forEach(input => {
-		localStorage.setItem(input,document.getElementById(input).value);
-	});
-	localStorage.setItem("rememberMe",document.getElementById("rememberMe").checked);
-}
-
-function checkLocalStorage(){
-	var cond = JSON.parse(localStorage.getItem("rememberMe"));
-	if (!cond){
-		localStorage.clear()
-		calculate();
-		return;
-	}
-	document.getElementById("rememberMe").checked = JSON.parse(localStorage.getItem("rememberMe"));
-	inpStars.forEach(input => {
-		if (Number(localStorage.getItem(input))) 
-		{
-		  document.getElementById(input).value = localStorage.getItem(input);
-		}
-	});
-	inputs.forEach(input => {
-		if (Number(localStorage.getItem(input))) 
-		{
-		  document.getElementById(input).value = localStorage.getItem(input);
-		}
-	});
-	calculate();
-}
+var inputs = ["inpStar1","inpStar2","inpStar3","inpStar4","inpStar5","inpStar6","inpStar7","inpStar8","inpStar9","inpStar10","v2","target"];
 
 function setAll() {
-  inpStars.forEach(input => {
+  inputs.forEach(input => {
     if (input.includes("inpStar")) {
       document.getElementById(input).value = document.getElementById("setAll").value;
     }
-	  if (document.getElementById("target").value <= document.getElementById("setAll").value){
-		  
-    document.getElementById("target").value = +document.getElementById("setAll").value + 1;
-  }
+    
   });
-}
-	
+
+    }
+
 function calculate() {
   var isValid = true;
-  inpStars.every(input => {
+  inputs.every(input => {
     if (document.getElementById(input).value <= 0) {
       document.getElementById(input).select();
       document.getElementById(input).classList.add("red");
@@ -133,6 +37,7 @@ function calculate() {
       document.getElementById("inpStar10").value,
   ];
 
+
   var desired = document.getElementById("target").value;
 
   var gsAmount = 0;
@@ -148,12 +53,15 @@ function calculate() {
       }
   });
 
-  document.getElementById("gs").innerHTML = gsAmount.toLocaleString(language);
-  document.getElementById("mag").innerHTML = magAmount.toLocaleString(language);
-  document.getElementById("fragment").innerHTML = fragmentAmount.toLocaleString(language);
-  
-  if ( document.getElementById("rememberMe").checked ) setLocalStorage();
-  
+  document.getElementById("gs").innerHTML = gsAmount.toLocaleString();
+  document.getElementById("mag").innerHTML = magAmount.toLocaleString();
+  document.getElementById("fragment").innerHTML = fragmentAmount.toLocaleString();
+}
+
+function isNumber(event) {
+  if (!String.fromCharCode(event.which).match(/[0-9]/)) {
+      event.preventDefault();
+  }
 }
 
 function gsCost(starLevel, scrapyardMul) {
@@ -213,7 +121,7 @@ function magnetCost(starLevel, scrapyardMul) {
   if (starLevel >= 20) cost *= 0.98;
   if (starLevel >= 21) cost *= 0.98;
   if (starLevel >= 22) cost *= 0.98;
-  if (starLevel >= 23) cost *= 0.98;
+  if (starLevel >= 23) cost *= 0.99;
   if (starLevel >= 70) cost *= 1.04;
   if (starLevel >= 75) cost *= 1.04;
   if (starLevel >= 80) cost *= 1.06;
@@ -276,10 +184,10 @@ function magnetCost(starLevel, scrapyardMul) {
   if (starLevel >= 1210) cost *= 1.3;
   if (starLevel >= 1260) cost *= 1.18;
   if (starLevel >= 1285) cost *= 1.18;
-  if (starLevel >= 1310) cost *= 1.36;
-  if (starLevel >= 1360) cost *= 1.36;
-  if (starLevel >= 1410) cost *= 1.37;
-  if (starLevel >= 1460) cost *= 1.37;
+  if (starLevel >= 1310) cost *= 1.4;
+  if (starLevel >= 1360) cost *= 1.4;
+  if (starLevel >= 1410) cost *= 1.45;
+  if (starLevel >= 1460) cost *= 1.4;
   if (starLevel >= 1510) cost *= 1.3;
   if (starLevel >= 1560) cost *= 1.269;
   if (starLevel >= 1610) cost *= 1.1;
