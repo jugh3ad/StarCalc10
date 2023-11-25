@@ -3,46 +3,25 @@
     <title>StarCalc</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" media="screen,projection"/>
-    <link type="text/css" rel="stylesheet" href="css/site.css" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="css/site-min.css" media="screen,projection"/>
 
 </head>
 <body>
-<h1 class="text-center"><span id = "lblTitle">Star Levels </span></h1>
-<div class="text-center" ><span id = "lblSetAll" >Set all Stars: </span><input id="setAll" type="number" maxlength="5" placeholder="Enter level" onchange="setAll();calculate()" min="10" value="10" ></div>
-<div class="text-center" ><span id = "lblSettings">Remember My Settings: </span><input id="rememberMe" type="checkbox" onchange="onRememberMeChange()"></div>
+<h1 class="text-center">Star Levels</h1>
+<div class="text-center">Set all Stars: <input id="setAll" type="number" placeholder="Enter level" onchange="setAll()"></div>
 <div class="d-grid gap-3">
     <div class="container">
         <div class="row d-flex justify-content-evenly">
             <div class="col starContainer">
                 <label class="text-center">
                     <img class="starIcon" alt="Star">
-                    <input class="starInput centered" id="inpStar1" type="number" value="10" maxlength="5" min="10" onchange="calculate()" >
+                    <input class="starInput centered" id="inpStar1" type="text" placeholder="99999" maxlength="5" onkeypress="isNumber(event)">
                 </label>
             </div>
             <div class="col starContainer">
                 <label class="text-center">
                     <img class="starIcon" alt="Star">
-                    <input class="starInput centered" id="inpStar2" type="number" value="10" maxlength="5" min="10" onchange="calculate()">
-                </label>
-            </div>
-        </div>
-        <div class="row d-flex justify-content-evenly">
-            <div class="col starContainer">
-                <label class="text-center">
-                    <img class="starIcon" alt="Star">
-                    <input class="starInput centered" id="inpStar3" type="number" value="10" maxlength="5" min="10" onchange="calculate()">
-                </label>
-            </div>
-            <div class="col starContainer">
-                <label class="text-center">
-                    <img class="starIcon" alt="Star">
-                    <input class="starInput centered" id="inpStar4" type="number" value="10" maxlength="5" min="10" onchange="calculate()">
-                </label>
-            </div>
-            <div class="col starContainer">
-                <label class="text-center">
-                    <img class="starIcon" alt="Star">
-                    <input class="starInput centered" id="inpStar5" type="number" value="10" maxlength="5" min="10" onchange="calculate()">
+                    <input class="starInput centered" id="inpStar2" type="text" placeholder="99999" maxlength="5" onkeypress="isNumber(event)">
                 </label>
             </div>
         </div>
@@ -50,19 +29,19 @@
             <div class="col starContainer">
                 <label class="text-center">
                     <img class="starIcon" alt="Star">
-                    <input class="starInput centered" id="inpStar6" type="number" value="10" maxlength="5" min="10" onchange="calculate()">
+                    <input class="starInput centered" id="inpStar3" type="text" placeholder="99999" maxlength="5" onkeypress="isNumber(event)">
                 </label>
             </div>
             <div class="col starContainer">
                 <label class="text-center">
                     <img class="starIcon" alt="Star">
-                    <input class="starInput centered" id="inpStar7" type="number" value="10" maxlength="5" min="10" onchange="calculate()">
+                    <input class="starInput centered" id="inpStar4" type="text" placeholder="99999" maxlength="5" onkeypress="isNumber(event)">
                 </label>
             </div>
             <div class="col starContainer">
                 <label class="text-center">
                     <img class="starIcon" alt="Star">
-                    <input class="starInput centered" id="inpStar8" type="number" value="10" maxlength="5" min="10" onchange="calculate()">
+                    <input class="starInput centered" id="inpStar5" type="text" placeholder="99999" maxlength="5" onkeypress="isNumber(event)">
                 </label>
             </div>
         </div>
@@ -70,31 +49,50 @@
             <div class="col starContainer">
                 <label class="text-center">
                     <img class="starIcon" alt="Star">
-                    <input class="centered starInput" id="inpStar9" type="number" value="10" maxlength="5" min="10" onchange="calculate()">
+                    <input class="starInput centered" id="inpStar6" type="text" placeholder="99999" maxlength="5" onkeypress="isNumber(event)">
                 </label>
             </div>
             <div class="col starContainer">
                 <label class="text-center">
                     <img class="starIcon" alt="Star">
-                    <input class="starInput centered" id="inpStar10" type="number" value="10" maxlength="5" min="10" onchange="calculate()">
+                    <input class="starInput centered" id="inpStar7" type="text" placeholder="99999" maxlength="5" onkeypress="isNumber(event)">
+                </label>
+            </div>
+            <div class="col starContainer">
+                <label class="text-center">
+                    <img class="starIcon" alt="Star">
+                    <input class="starInput centered" id="inpStar8" type="text" placeholder="99999" maxlength="5" onkeypress="isNumber(event)">
+                </label>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-evenly">
+            <div class="col starContainer">
+                <label class="text-center">
+                    <img class="starIcon" alt="Star">
+                    <input class="starInput centered" id="inpStar9" type="text" placeholder="99999" maxlength="5" onkeypress="isNumber(event)">
+                </label>
+            </div>
+            <div class="col starContainer">
+                <label class="text-center">
+                    <img class="starIcon" alt="Star">
+                    <input class="starInput centered" id="inpStar10" type="text" placeholder="99999" maxlength="5" onkeypress="isNumber(event)">
                 </label>
             </div>
         </div>
     </div>
-    <div class="text-center">
+    <div class="input-group-sm">
         <label class="text-center">
-            <span class="h3 w-50" id="lblv2Level">Scrapyard V2 Level:</span>
-            <input class="w-25" id="v2" type="number" placeholder="Enter level" min="1" value="1" onchange="calculate()">
+            <span class="h3 w-50">Scrapyard V2 Level:</span>
+            <input class="w-25" id="v2" type="number" placeholder="Enter level">
         </label>
-		<br/>
+
         <label class="text-center">
-            <span class="h3 w-50" id = "lblTarget">Target Star Level:</span>
-            <input class="w-25" id="target" type="number" placeholder="Enter level" min="11" value="11" onchange="calculate()">
+            <span class="h3 w-50">Target Star Level:</span>
+            <input class="w-25" id="target" type="number" placeholder="Enter level">
         </label>
-        <!--<div class="text-center" style="padding: 10px;">
+        <div class="text-center" style="padding: 10px;">
             <button class="btn btn-primary" onclick="calculate()" >Submit</button>
-        </div> 
-		-->
+        </div>
     </div>
 
     <div class="container">
